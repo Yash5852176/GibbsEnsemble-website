@@ -660,7 +660,7 @@ fig.write_html(<span class="text-[#ce9178]">"ultimate_cosmic_engine.html"</span>
                         </a>
                     </div>
                 </div>
-                const apiKey = "AIzaSyA9jOW623oMFXTnDnhx48xTh0-ISuOFby0";
+               const apiKey = "AIzaSyA9jOW623oMFXTnDnhx48xTh0-ISuOFby0";
                 <!-- Interpretation Legend -->
                 <div class="flex gap-6 bg-appleCard p-4 rounded-xl border border-appleBorder">
                     <div>
@@ -1079,11 +1079,6 @@ fig.write_html(<span class="text-[#ce9178]">"ultimate_cosmic_engine.html"</span>
             
             for (let i = 0; i < 5; i++) {
                 try {
-                    // Pre-flight check to warn users if they deploy without setting the API key
-                    if (!apiKey && window.location.hostname !== "localhost" && !window.location.hostname.includes("google")) {
-                        console.warn("API key is missing.");
-                    }
-
                     const response = await fetch(url, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -1092,7 +1087,6 @@ fig.write_html(<span class="text-[#ce9178]">"ultimate_cosmic_engine.html"</span>
                     
                     if (!response.ok) {
                         const err = await response.json();
-                        throw new Error(`API Error: ${err.error?.message || response.statusText}`);
                     }
                     
                     const data = await response.json();
@@ -1105,10 +1099,7 @@ fig.write_html(<span class="text-[#ce9178]">"ultimate_cosmic_engine.html"</span>
                 } catch (error) {
                     console.error("Gemini API Error:", error);
                     if (i === 4) {
-                        if (error.message.includes("API_KEY_INVALID") || url.endsWith("key=")) {
-                            return "Error: Missing or Invalid API Key. If hosting on GitHub Pages, add your Google AI Studio API key to the 'apiKey' variable in the code.";
-                        }
-                        return "Connection to the inference endpoint failed. Please verify API access and try again.";
+                        return "Connection to the AI assistant failed. Please verify API access and try again.";
                     }
                     await new Promise(resolve => setTimeout(resolve, delays[i]));
                 }
