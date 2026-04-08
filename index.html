@@ -254,7 +254,7 @@
                     </div>
 
                     <p class="text-appleTextSecondary text-lg leading-relaxed">
-                        This normalizes the data, fundamentally turning physics into probability, allowing our simulation engine to sample the data as the likelihood of quantum particle states. Everything culminates in maximizing thermodynamic entropy: <span class="font-mono bg-black px-2 py-1 rounded">S = k ln W</span>.
+                        This normalizes the data, fundamentally turning physics into probability, allowing our simulation engine to sample the data as the likelihood of quantum particle states. Everything culminates in maximizing thermodynamic entropy: <span class="font-mono bg-black px-2 py-1 rounded">S = k \ln W</span>.
                     </p>
                 </div>
                 
@@ -660,7 +660,7 @@ fig.write_html(<span class="text-[#ce9178]">"ultimate_cosmic_engine.html"</span>
                         </a>
                     </div>
                 </div>
-               const apiKey = "AIzaSyA9jOW623oMFXTnDnhx48xTh0-ISuOFby0";
+                const apiKey = "AIzaSyA9jOW623oMFXTnDnhx48xTh0-ISuOFby0";
                 <!-- Interpretation Legend -->
                 <div class="flex gap-6 bg-appleCard p-4 rounded-xl border border-appleBorder">
                     <div>
@@ -1099,7 +1099,10 @@ fig.write_html(<span class="text-[#ce9178]">"ultimate_cosmic_engine.html"</span>
                 } catch (error) {
                     console.error("Gemini API Error:", error);
                     if (i === 4) {
-                        return "Connection to the AI assistant failed. Please verify API access and try again.";
+                        if (apiKey === "") {
+                            return "⚠️ **API Key Missing:** The AI cannot connect because the `apiKey` variable is empty. \n\n**How to fix this on GitHub Pages:**\n1. Get a free key from Google AI Studio.\n2. Edit your `index.html` file on GitHub.\n3. Scroll to the bottom and change `const apiKey = \"\";` to `const apiKey = \"YOUR_ACTUAL_KEY\";`";
+                        }
+                        return `⚠️ **Connection Failed:** ${error.message || "Unknown Network Error"}. Please verify your API key and try again.`;
                     }
                     await new Promise(resolve => setTimeout(resolve, delays[i]));
                 }
